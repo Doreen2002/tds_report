@@ -56,5 +56,5 @@ def execute(filters=None):
 				for t in tds:
 					if t.add_deduct_tax == "Deduct" and "TDS" in t.account_head:
 						total_tds_amount += t.tax_amount
-		data.append(sup.name, filters.account_head, total_tds_amount, total_tds_paid_amount, total_tds_balance_amount)
+		data.append([sup.name, filters.account_head, total_tds_amount, total_tds_paid_amount, total_tds_balance_amount])
 	return columns, data
