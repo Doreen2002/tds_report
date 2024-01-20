@@ -43,7 +43,7 @@ def execute(filters=None):
            
         }
 	]
-	if not filters.account_head:
+	if  filters.account_head == None:
 		frappe.throw("Please Select Account Head to View Report")
 	supplier = frappe.db.get_list("Supplier", fields=['*'])
 	for sup in supplier:
