@@ -7,6 +7,7 @@ from frappe import _
  
 
 def execute(filters=None):
+	data = []
 	columns =[
 	{
             'fieldname': 'TDs Type/ Party Name',
