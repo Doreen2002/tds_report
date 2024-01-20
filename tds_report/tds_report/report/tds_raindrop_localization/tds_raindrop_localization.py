@@ -55,7 +55,7 @@ def execute(filters=None):
 			if filters.account_head:
 				tds = frappe.db.get_all("Purchase Taxes and Charges Template", filters={"parent":pur.name, "custom_when_to_use":filters.account_head}, fields=['*'])
 				for t in tds:
-					if t.add_deduct_tax == "Deduct" and "TDS" in t.account_head:
+					if t.add_deduct_tax == "Deduct":
 						total_tds_amount += t.tax_amount
 				journal = frappe.db.get_list("Journal Entry", fields=['*'])
 				for jour in journal:
