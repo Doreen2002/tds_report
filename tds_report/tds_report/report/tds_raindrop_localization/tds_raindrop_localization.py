@@ -10,8 +10,8 @@ def execute(filters=None):
 	data = []
 	columns =[
 	{
-            'fieldname': 'TDs Type/ Party Name',
-            'label': _('Supplier'),
+            'fieldname': 'supplier',
+            'label': _('TDs Type/ Party Name'),
             'fieldtype': 'Link',
 	    'options': 'Supplier',
            
