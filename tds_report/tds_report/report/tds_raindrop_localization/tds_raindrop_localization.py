@@ -12,7 +12,7 @@ def execute(filters=None):
             'fieldname': 'Supplier',
             'label': _('Supplier'),
             'fieldtype': 'Link',
-	    'option': 'Supplier',
+	    'options': 'Supplier',
            
         },
 	{
