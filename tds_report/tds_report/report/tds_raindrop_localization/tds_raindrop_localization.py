@@ -1,27 +1,24 @@
 # Copyright (c) 2024, raindrop and contributors
 # For license information, please see license.txt
 
-import frappe
-from frappe import _
-
+# import frappe
  
 
 def execute(filters=None):
-	
+	columns, data = [], []
 	columns =[
 	{
-            'fieldname': 'supplier',
-            'label': _('TDs Type/ Party Name'),
+            'fieldname': 'Supplier',
+            'label': _('Supplier'),
             'fieldtype': 'Link',
-	    'options': 'Supplier',
+	    'option': 'Supplier',
            
         },
 	{
             'fieldname': 'account_head',
             'label': _('Account Head'),
             'fieldtype': 'Link',
-	    'options': 'Account Head',
-	    'default': '11131 TDS on Rent'
+	    'options': 'Account Head'
            
         },
 	{
@@ -44,8 +41,7 @@ def execute(filters=None):
            
         }
 	]
-	data = []
-	if  filters.account_head == None:
+	if not filters.account_head:
 		frappe.throw("Please Select Account Head to View Report")
 	supplier = frappe.db.get_list("Supplier", fields=['*'])
 	for sup in supplier:
@@ -54,17 +50,10 @@ def execute(filters=None):
 		total_tds_balance_amount = 0
 		purchase_invoice = frappe.db.get_list("Purchase Invoice", filters={"supplier":sup.name}, fields=['*'])
 		for pur in purchase_invoice:
-			tds = frappe.db.get_all("Purchase Taxes and Charges", filters={"parent":pur.name, "add_deduct_tax":"Deduct" , "custom_when_to_use":filters.account_head}, fields=['*'])
-			if tds != []:
-				for t in tds:
+			if filters.account_head:
+			tds = frappe.db.get_all("Purchase Taxes and Charges", filters={"custom_when_to_use":filters.account_head}, fields=['*'])
+			for t in tds:
+				if t.add_deduct_tax == "Deduct" and "TDS" in t.account_head:
 					total_tds_amount += t.tax_amount
-			journal = frappe.db.get_list("Journal Entry", fields=['*'])
-			if journal != []:
-				for jour in journal:
-					journal_tds = frappe.db.get_all("Journal Entry Account", filters={"parent":jour.name,"custom_when_to_use":filters.account_head, "reference_type":"Purchase Invoice", "reference_name":pur.name}, fields=['*'])
-					if journal_tds != []:
-						for tds in journal_tds:
-							total_tds_paid_amount += tds.debit
-		
-		data.append([sup.name, filters.account_head, total_tds_amount, total_tds_paid_amount, total_tds_balance_amount])
+		data.append(sup.name, filters.account_head, total_tds_amount, total_tds_paid_amount, total_tds_balance_amount)
 	return columns, data
