@@ -7,7 +7,7 @@ from frappe import _
  
 
 def execute(filters=None):
-	data = []
+	
 	columns =[
 	{
             'fieldname': 'supplier',
@@ -44,6 +44,7 @@ def execute(filters=None):
            
         }
 	]
+	data = []
 	if  filters.account_head == None:
 		frappe.throw("Please Select Account Head to View Report")
 	supplier = frappe.db.get_list("Supplier", fields=['*'])
