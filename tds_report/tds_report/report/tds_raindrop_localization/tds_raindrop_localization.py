@@ -57,9 +57,9 @@ def execute(filters=None):
 					if t.add_deduct_tax == "Deduct" and "TDS" in t.account_head:
 						total_tds_amount += t.tax_amount
 				journal = frappe.db.get_list("Journal Entry", fields=['*'])
-				for jour in journal:
-					journal_tds = frappe.db.get_all("Journal Entry Account", filters={"parent":jour.name,"custom_when_to_use":filters.account_head, "reference_type":"Purchase Invoice", "reference_name":pur.name}, fields=['*'])
-					for tds in journal_tds:
-						total_tds_paid_amount += tds.debit
+				# for jour in journal:
+				# 	journal_tds = frappe.db.get_all("Journal Entry Account", filters={"parent":jour.name,"custom_when_to_use":filters.account_head, "reference_type":"Purchase Invoice", "reference_name":pur.name}, fields=['*'])
+				# 	for tds in journal_tds:
+				# 		total_tds_paid_amount += tds.debit
 		data.append([sup.name, filters.account_head, total_tds_amount, total_tds_paid_amount, total_tds_amount - total_tds_paid_amount ])
 	return columns, data
