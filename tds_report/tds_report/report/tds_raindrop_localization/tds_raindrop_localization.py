@@ -62,5 +62,6 @@ def execute(filters=None):
 					journal_tds = frappe.db.get_all("Journal Entry Account", filters={"parent":jour.name,"custom_when_to_use":filters.account_head, "reference_type":"Purchase Invoice", "reference_name":pur.name}, fields=['*'])
 					for tds in journal_tds:
 						total_tds_paid_amount += tds.debit
-		data.append([sup.name, filters.account_head, total_tds_amount, total_tds_paid_amount, 0 ])
+		total_tds_balance_amount = total_tds_amount - total_tds_paid_amount
+		data.append([sup.name, filters.account_head, total_tds_amount, total_tds_paid_amount, total_tds_balance_amount ])
 	return columns, data
