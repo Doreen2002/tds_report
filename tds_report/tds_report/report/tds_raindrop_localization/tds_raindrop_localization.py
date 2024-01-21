@@ -10,7 +10,7 @@ def execute(filters=None):
 	columns =[
 	{
             'fieldname': 'Supplier',
-            'label': _('Supplier'),
+            'label': _('TDs Type/ Party Name'),
             'fieldtype': 'Link',
 	    'options': 'Supplier',
            
@@ -52,12 +52,11 @@ def execute(filters=None):
 		total_tds_balance_amount = 0
 		purchase_invoice = frappe.db.get_list("Purchase Invoice", filters={"supplier":sup.name}, fields=['*'])
 		for pur in purchase_invoice:
-			if filters.account_head != None:
-				account = filters.account_head
-				tds = frappe.db.get_all("Purchase Taxes and Charges",  fields=['*'])
-				for t in tds:
-					if t.add_deduct_tax == "Deduct" and "TDS" in t.account_head:
-						total_tds_amount += t.tax_amount
+			account = filters.account_head
+			tds = frappe.db.get_all("Purchase Taxes and Charges", filters{"custom_when_to_use" : account}, fields=['*'])
+			for t in tds:
+				if t.add_deduct_tax == "Deduct" and "TDS" in t.account_head:
+					total_tds_amount += t.tax_amount
 				#journal = frappe.db.get_list("Journal Entry", fields=['*'])
 				# for jour in journal:
 				# 	journal_tds = frappe.db.get_all("Journal Entry Account", filters={"parent":jour.name,"custom_when_to_use":filters.account_head, "reference_type":"Purchase Invoice", "reference_name":pur.name}, fields=['*'])
