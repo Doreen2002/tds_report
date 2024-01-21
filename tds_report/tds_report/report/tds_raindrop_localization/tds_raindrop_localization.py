@@ -42,7 +42,7 @@ def execute(filters=None):
            
         }
 	]
-	if not filters.account_head:
+	if filters.account_head == None:
 		frappe.throw("Please Select Account Head to View Report")
 	supplier = frappe.db.get_list("Supplier", fields=['*'])
 	for sup in supplier:
@@ -51,8 +51,9 @@ def execute(filters=None):
 		total_tds_balance_amount = 0
 		purchase_invoice = frappe.db.get_list("Purchase Invoice", filters={"supplier":sup.name}, fields=['*'])
 		for pur in purchase_invoice:
-			if filters.account_head:
-				tds = frappe.db.get_all("Purchase Taxes and Charges", filters={"parent":pur.name, "add_deduct_tax":"Deduct"}, fields=['*'])
+			if filters.account_head != None:
+				account = filters.account_head
+				tds = frappe.db.get_all("Purchase Taxes and Charges", filters={"parent":pur.name, "add_deduct_tax":"Deduct", "custom_when_to_use":account}, fields=['*'])
 				for t in tds:
 					if t.add_deduct_tax == "Deduct" and "TDS" in t.account_head:
 						total_tds_amount += t.tax_amount
