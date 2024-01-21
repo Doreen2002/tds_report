@@ -52,7 +52,7 @@ def execute(filters=None):
 		purchase_invoice = frappe.db.get_list("Purchase Invoice", filters={"supplier":sup.name}, fields=['*'])
 		for pur in purchase_invoice:
 			if filters.account_head:
-				tds = frappe.db.get_all("Purchase Taxes and Charges", filters={"parent":pur.name, "add_deduct_tax":"Deduct", "custom_when_to_use":filters.account_head}, fields=['*'])
+				tds = frappe.db.get_all("Purchase Taxes and Charges", filters={"parent":pur.name, "add_deduct_tax":"Deduct"}, fields=['*'])
 				for t in tds:
 					if t.add_deduct_tax == "Deduct" and "TDS" in t.account_head:
 						total_tds_amount += t.tax_amount
