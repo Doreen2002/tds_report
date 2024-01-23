@@ -10,6 +10,6 @@ frappe.query_reports["TDS Raindrop Localization"] = {
             fieldtype: 'Link',
             options: 'Account Head',
         
-        }
+        },
 	]
 };
