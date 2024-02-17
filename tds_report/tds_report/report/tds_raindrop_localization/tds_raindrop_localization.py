@@ -19,7 +19,7 @@ def execute(filters=None):
             'fieldname': 'account_head',
             'label': _('Account Head'),
             'fieldtype': 'Link',
-	    'options': 'Account Head',
+	    'options': 'TDS Category',
 	    'default':'11131 TDS on Rent'
            
         },
