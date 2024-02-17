@@ -80,13 +80,11 @@ def execute(filters=None):
 	]
 	if filters.account_head == None:
 		frappe.throw("Please Select Account Head to View Report")
-	supplier = frappe.db.get_list("Supplier", fields=['*'])
-	for sup in supplier:
-		total_tds_amount = 0
-		total_tds_paid_amount = 0
-		total_tds_balance_amount = 0
 		purchase_invoice = frappe.db.get_list("Purchase Invoice", fields=['*'])
 		for pur in purchase_invoice:
+			total_tds_amount = 0
+			total_tds_paid_amount = 0
+			total_tds_balance_amount = 0
 			account = filters.account_head
 			tds = frappe.db.get_all("Purchase Taxes and Charges", filters={"parent":pur.name, "add_deduct_tax":"Deduct", "custom_when_to_use" : filters.account_head}, fields=['*'])
 			for t in tds:
@@ -98,5 +96,5 @@ def execute(filters=None):
 					for tds in journal_tds:
 						total_tds_paid_amount += tds.debit
 			total_tds_balance_amount =  total_tds_paid_amount -  total_tds_amount 
-			data.append([sup.name, filters.account_head, total_tds_amount, total_tds_paid_amount, total_tds_balance_amount , pur.posting_date, pur.name, "", ""])
+			data.append([pur.supplier, filters.account_head, total_tds_amount, total_tds_paid_amount, total_tds_balance_amount , pur.posting_date, pur.name, "", ""])
 	return columns, data
