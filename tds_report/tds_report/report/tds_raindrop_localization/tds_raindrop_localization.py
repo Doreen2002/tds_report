@@ -41,6 +41,41 @@ def execute(filters=None):
 		
 	   
            
+        },
+	{
+            'fieldname': 'pi_date',
+            'label': _('Voucher Date'),
+            'fieldtype': 'Date',
+		
+	   
+           
+        },
+	{
+            'fieldname': 'voucher_no',
+            'label': _('Voucher No'),
+            'fieldtype': 'Link',
+	    'options': 'Purchase Invoice',
+		
+	   
+           
+        },
+	{
+            'fieldname': 'journal_voucher',
+            'label': _('Journal Voucher'),
+            'fieldtype': 'Link',
+	    'options': 'Journal Entry',
+		
+	   
+           
+        }
+	{
+            'fieldname': 'pi_number',
+            'label': _('Submission Number'),
+            'fieldtype': 'Link',
+	    'options': 'Purchase Invoice',
+		
+	   
+           
         }
 	]
 	if filters.account_head == None:
