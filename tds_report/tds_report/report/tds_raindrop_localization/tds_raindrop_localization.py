@@ -85,7 +85,7 @@ def execute(filters=None):
 		total_tds_amount = 0
 		total_tds_paid_amount = 0
 		total_tds_balance_amount = 0
-		purchase_invoice = frappe.db.get_list("Purchase Invoice", filters={"supplier":sup.name}, fields=['*'])
+		purchase_invoice = frappe.db.get_list("Purchase Invoice", fields=['*'])
 		for pur in purchase_invoice:
 			account = filters.account_head
 			tds = frappe.db.get_all("Purchase Taxes and Charges", filters={"parent":pur.name, "add_deduct_tax":"Deduct", "custom_when_to_use" : filters.account_head}, fields=['*'])
