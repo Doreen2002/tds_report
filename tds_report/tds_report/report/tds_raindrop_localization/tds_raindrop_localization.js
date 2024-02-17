@@ -6,9 +6,9 @@ frappe.query_reports["TDS Raindrop Localization"] = {
 	"filters": [
 		{
             fieldname: 'account_head',
-            label: __('Account Head'),
+            label: __('TDS Category'),
             fieldtype: 'Link',
-            options: 'Account Head',
+            options: 'TDS Category',
         
         },
 	]
