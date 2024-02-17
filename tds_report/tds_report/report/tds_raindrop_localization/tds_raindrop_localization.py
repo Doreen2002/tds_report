@@ -67,7 +67,7 @@ def execute(filters=None):
 		
 	   
            
-        }
+        },
 	{
             'fieldname': 'pi_number',
             'label': _('Submission Number'),
