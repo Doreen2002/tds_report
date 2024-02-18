@@ -91,7 +91,7 @@ def execute(filters=None):
 	if filters.from_date != None and filters.to_date == None:
 		filters_list.update({'posting_date':[ 'between', [filters.from_date, today()]]})
 	if filters.from_date == None and filters.to_date != None:
-		filters_list.update({'posting_date':[ 'between', [today(), filters.to_date]]})
+		filters_list.update({'posting_date':[ 'between', [filters.to_date, filters.to_date]]})
 	purchase_invoice = frappe.db.get_list("Purchase Invoice", filters=filters_list, fields=['*'])
 	for pur in purchase_invoice:
 		total_tds_amount = 0
