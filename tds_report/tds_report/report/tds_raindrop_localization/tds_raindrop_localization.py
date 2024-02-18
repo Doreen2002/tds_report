@@ -83,8 +83,8 @@ def execute(filters=None):
 	
 	
 	filters_list = {}
-		if filters.supplier != None:
-			filters_list.update({"supplier": filters.supplier})	
+	if filters.supplier != None:
+		filters_list.update({"supplier": filters.supplier})	
 	purchase_invoice = frappe.db.get_list("Purchase Invoice", filters=filters_list fields=['*'])
 	for pur in purchase_invoice:
 		total_tds_amount = 0
