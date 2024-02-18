@@ -111,7 +111,5 @@ def execute(filters=None):
 		total_tds_balance_amount =  total_tds_paid_amount -  total_tds_amount 
 		if frappe.db.get_value("Journal Entry Account", {"custom_tds_category":filters.account_head, "custom_submitted_number": pur.name}, 'parent') != None:
 			journal_voucher = frappe.db.get_value("Journal Entry Account", {"custom_tds_category":filters.account_head, "custom_submitted_number": pur.name}, 'parent')
-		if frappe.db.get_value("Journal Entry Account", {"custom_tds_category":filters.account_head, "custom_submitted_number": pur.name}, 'custom_submitted_number') != None:
-			submitted_number = frappe.db.get_value("Journal Entry Account", {"custom_tds_category":filters.account_head, "custom_submitted_number": pur.name}, 'custom_submitted_number')
-		data.append([pur.supplier, filters.account_head, total_tds_amount, total_tds_paid_amount, total_tds_balance_amount , pur.posting_date, pur.name, journal_voucher, submitted_number])
+		data.append([pur.supplier, filters.account_head, total_tds_amount, total_tds_paid_amount, total_tds_balance_amount , pur.posting_date, pur.name, journal_voucher, pur.name])
 	return columns, data
