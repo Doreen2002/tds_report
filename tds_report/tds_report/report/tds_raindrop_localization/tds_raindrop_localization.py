@@ -3,7 +3,8 @@
 
 import frappe
 from frappe import _
- 
+from frappe.utils import today
+
 
 def execute(filters=None):
 	columns, data = [], []
@@ -86,7 +87,11 @@ def execute(filters=None):
 	if filters.supplier != None:
 		filters_list.update({"supplier": filters.supplier})	
 	if filters.from_date != None and filters.to_date != None:
-		filters_list.update({'posting_date':[ 'between', ['2023-11-30', '2024-01-12']]})
+		filters_list.update({'posting_date':[ 'between', [filters.from_date, filters.to_date]]})
+	if filters.from_date != None and filters.to_date == None:
+		filters_list.update({'posting_date':[ 'between', [filters.from_date, today()]]})
+	if filters.from_date == None and filters.to_date != None:
+		filters_list.update({'posting_date':[ 'between', [today(), filters.to_date]]})
 	purchase_invoice = frappe.db.get_list("Purchase Invoice", filters=filters_list, fields=['*'])
 	for pur in purchase_invoice:
 		total_tds_amount = 0
