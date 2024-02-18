@@ -91,7 +91,7 @@ def execute(filters=None):
 		account = filters.account_head
 		filters = {"parent":pur.name, "add_deduct_tax":"Deduct", "custom_when_to_use" : filters.account_head}
 		if filters.supplier != None:
-			filters["supplier"] = filters.supplier
+			filters.update({"supplier": filters.supplier})
 		tds = frappe.db.get_all("Purchase Taxes and Charges", filters=filters, fields=['*'])
 		for t in tds:
 			if t.add_deduct_tax == "Deduct" and "TDS" in t.account_head:
